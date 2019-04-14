@@ -68,3 +68,13 @@ div.tooltip {
     pointer-events: none;
     opacity: 0;
 }
+
+div.tooltip h3 {
+  font-size: 13px; margin: 0 0 7px 0;
+  line-height: 1.2em;
+}
+
+div.tooltip .line { clear: both; margin-top: 3px; font-size: 11px; }
+div.tooltip .symbol { float: left; width: 6px; height: 6px; margin: 3px 4px 0 0; }
+div.tooltip .val { float: right; width: 25px; text-align: right; margin-right: 4px; }
+div.tooltip .moe { float: right; color: #aaa; width: 30px; text-align: right; }
