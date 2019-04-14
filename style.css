@@ -78,3 +78,36 @@ div.tooltip .line { clear: both; margin-top: 3px; font-size: 11px; }
 div.tooltip .symbol { float: left; width: 6px; height: 6px; margin: 3px 4px 0 0; }
 div.tooltip .val { float: right; width: 25px; text-align: right; margin-right: 4px; }
 div.tooltip .moe { float: right; color: #aaa; width: 30px; text-align: right; }
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.button { fill: #000; }
+.counties {
+  fill: #e0e0e0;
+}
+
+.states {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.5px;
+  stroke-linejoin: round;
+}
+
+.counties path.selected {
+    stroke: #000;
+    stroke-width: 0.5px;
+}
+
+path.HC01_EST_VC04, #metrics ul li.selected.HC01_EST_VC04, .tooltip .HC01_EST_VC04 { fill: #8dd3c7; background: #8dd3c7; }
+path.HC01_EST_VC05, #metrics ul li.selected.HC01_EST_VC05, .tooltip .HC01_EST_VC05 { fill: #bc80bd; background: #bc80bd; }
+path.HC01_EST_VC10, #metrics ul li.selected.HC01_EST_VC10, .tooltip .HC01_EST_VC10 { fill: #bebada; background: #bebada; }
+path.HC01_EST_VC11, #metrics ul li.selected.HC01_EST_VC11, .tooltip .HC01_EST_VC11 { fill: #fb8072; background: #fb8072; }
+path.HC01_EST_VC12, #metrics ul li.selected.HC01_EST_VC12, .tooltip .HC01_EST_VC12 { fill: #80b1d3; background: #80b1d3; }
+path.HC01_EST_VC13, #metrics ul li.selected.HC01_EST_VC13, .tooltip .HC01_EST_VC13 { fill: #fdb462; background: #fdb462; }
+path.HC01_EST_VC14, #metrics ul li.selected.HC01_EST_VC14, .tooltip .HC01_EST_VC14 { fill: #b3de69; background: #b3de69; }
+path.NODATA { fill: #fff; }
+
+.clr{clear: both;}
