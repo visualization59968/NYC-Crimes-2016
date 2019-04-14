@@ -38,3 +38,33 @@ path:hover {
 	left:55px;
 	top:4px;
 }
+
+#metrics ul li.bottom { margin-bottom: 0; }
+#metrics #motor { width: 200px; float: left; margin-right: 15px; height: 5px}
+/* #metrics #non-motor { width: 250px; float: left; padding-left: 5px;  } */
+#metrics .block-button { width: 80px; display: block; float:left; clear:both; }
+#metrics em {
+	list-style: none;
+	margin: 10px 10px 0 0;
+	padding: 4px 0;
+	display: block;
+	width: 200px;
+	text-align: left;
+	font-size: 12px;
+	position: relative;
+	left: 55px;
+	top: 5px;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: left;
+    width: 170px;
+    padding: 10px;
+	border-radius: 4px;
+    font-size: 12px;
+    font-family: Roboto, Helvetica, sans-serif;
+    background: #ffffff;
+    pointer-events: none;
+    opacity: 0;
+}
