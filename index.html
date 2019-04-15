@@ -199,6 +199,41 @@ function ready(error, CD_topoJSON) {
                });
 
 
+      updateClasses();
+
+    <!--  d3.selectAll("#metrics li") -->
+        <!-- .on("click", function() { -->
+            <!-- var item = d3.select(this); -->
+            <!-- if (item.classed("selected")) { -->
+                <!-- item.attr("class", ""); -->
+                <!-- removeFromArray(CURR_SELECT, item.attr("data-metric")); -->
+
+            <!-- } else { -->
+                <!-- item.classed("selected " + item.attr("data-metric"), true); -->
+                <!-- CURR_SELECT.push(item.attr("data-metric")); -->
+            <!-- } -->
+            <!-- updateClasses(); -->
+        <!-- }); -->
+
+        d3.selectAll("#metrics li")
+        .on("click", function() {
+            var item = d3.select(this);
+            if (item.classed("selected")) {
+                item.attr("class", "");
+                removeFromArray(CURR_SELECT, item.attr("data-metric"));
+
+            } else {
+				var removed = CURR_SELECT.splice(0,7);
+				d3.selectAll("#metrics li").attr("class", "");
+                item.classed("selected " + item.attr("data-metric"), true);
+				CURR_SELECT.push(item.attr("data-metric"));
+            }
+            updateClasses();
+        });
+
+
+
+
 
 
   <body>
