@@ -173,6 +173,30 @@ function ready(error, CD_topoJSON) {
                  tooltip.style("top", (d3.event.pageY -30) + "px");
              }
 
+              tooltip.select(".name").text(commuteById.get(d.id)['name']);
+              tooltip.select(".HC01_EST_VC04_val.val").text(d3.round(commuteById.get(d.id)["HC01_EST_VC04"]))
+              tooltip.select(".HC01_EST_VC05_val.val").text(d3.round(commuteById.get(d.id)["HC01_EST_VC05"]))
+              tooltip.select(".HC01_EST_VC10_val.val").text(d3.round(commuteById.get(d.id)["HC01_EST_VC10"]))
+              tooltip.select(".HC01_EST_VC11_val.val").text(d3.round(commuteById.get(d.id)["HC01_EST_VC11"]))
+              tooltip.select(".HC01_EST_VC12_val.val").text(d3.round(commuteById.get(d.id)["HC01_EST_VC12"]))
+              tooltip.select(".HC01_EST_VC13_val.val").text(d3.round(commuteById.get(d.id)["HC01_EST_VC13"]))
+              tooltip.select(".HC01_EST_VC14_val.val").text(d3.round(commuteById.get(d.id)["HC01_EST_VC14"]))
+
+               tooltip.select(".HC01_EST_VC04_val.moe").html(commuteById.get(d.id)["HC01_MOE_VC04"] + "%")
+               tooltip.select(".HC01_EST_VC05_val.moe").html(commuteById.get(d.id)["HC01_MOE_VC05"] + "%")
+               tooltip.select(".HC01_EST_VC10_val.moe").html(commuteById.get(d.id)["HC01_MOE_VC10"] + "%")
+               tooltip.select(".HC01_EST_VC11_val.moe").html(commuteById.get(d.id)["HC01_MOE_VC11"] + "%")
+               tooltip.select(".HC01_EST_VC12_val.moe").html(commuteById.get(d.id)["HC01_MOE_VC12"] + "%")
+               tooltip.select(".HC01_EST_VC13_val.moe").html(commuteById.get(d.id)["HC01_MOE_VC13"] + "%")
+               tooltip.select(".HC01_EST_VC14_val.moe").html(commuteById.get(d.id)["HC01_MOE_VC14"] + "%")
+
+             })
+
+             .on("mouseout", function() {
+               d3.select(this).classed("selected", false);
+               tooltip.transition().duration(300)
+                 .style("opacity", 0);
+               });
 
 
 
