@@ -118,6 +118,63 @@ var zoom = d3.behavior.zoom()
       svg.on("wheel.zoom", null);
       svg.on("mousewheel.zoom", null);
 
+      svg.append("rect")
+    .attr("class", "overlay")
+    .attr("width", width)
+    .attr("height", height);
+
+    svg.append("svg:image")
+    .attr("xlink:href", "images/progress-anim.gif")
+    .attr("id", "progress-image")
+    .attr("width", 43)
+    .attr("height", 11)
+    .attr("x", width / 2)
+    .attr("y", height / 2);
+
+    var g = svg.append("g");
+
+  var tooltip = d3.select("#tooltip")
+ .attr("class", "tooltip")
+ .style("opacity", 0);
+
+ //Pre-select NB permit type in map
+ //working on each type of selection
+var CURR_SELECT = ["HC01_EST_VC04"];
+
+queue()
+    .defer(d3.json, "data/CD_topoJSON.json")
+    .defer(d3.csv, "data/Crime_Felonies_C.csv", typeAndSet)
+    .await(ready);
+
+
+function ready(error, CD_topoJSON) {
+
+      g.append("g")
+          .attr("class", "collection")
+          .selectAll("path")
+            .data(topojson.feature(CD_topoJSON, CD_topoJSON.objects.collection).features)
+          .enter().append("path")
+            // .attr("class", function(d) { return classByGreatest(d.id); })
+            .attr("d", path)
+
+            .on("mouseover", function(d) {
+             d3.select(this).classed("selected", true);
+             tooltip.transition().duration(100)
+               .style("opacity", 1)
+             if (d3.event.pageX > (width - 200)) {
+                 tooltip.style("left", (d3.event.pageX - 210) + "px");
+             } else {
+                 tooltip.style("left", (d3.event.pageX + 20) + "px")
+                      .style("top", (d3.event.pageY -30) + "px");
+             }
+             if (d3.event.pageY > (height - 150)) {
+                 tooltip.style("top", (d3.event.pageY -140) + "px");
+             } else {
+                 tooltip.style("top", (d3.event.pageY -30) + "px");
+             }
+
+
+
 
 
   <body>
