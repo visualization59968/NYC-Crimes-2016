@@ -232,11 +232,216 @@ function ready(error, CD_topoJSON) {
         });
 
 
+      //Zoom Buttons
+      svg.selectAll(".button")
+        .data(['zoom_in', 'zoom_out'])
+      .enter()
+        .append("g")
+          .attr("id", function(d){return d})
+          .attr("class", "button")
+          .attr({x: 20, width: 20, height: 20})
+        .append("rect")
+            .attr("y", function(d,i) { return 20 + 25*i })
+            .attr({x: 20, width: 20, height: 20})
+        // Plus button
+          svg.select("#zoom_in")
+            .append("line")
+              .attr({x1: 25, y1: 30, x2: 35, y2: 30 })
+              .attr("stroke", "#fff")
+              .attr("stroke-width", "2px");
+          svg.select("#zoom_in")
+            .append("line")
+              .attr({x1: 30, y1: 25, x2: 30, y2: 35 })
+              .attr("stroke", "#fff")
+              .attr("stroke-width", "2px");
+      // Minus button
+          svg.select("#zoom_out")
+            .append("line")
+              .attr({x1: 25, y1: 55, x2: 35, y2: 55 })
+              .attr("stroke", "#fff")
+              .attr("stroke-width", "2px");
+
+              svg.selectAll(".button")
+              .on("click", function() {
+                  d3.event.preventDefault();
+
+                  var scale = zoom.scale(),
+                      extent = zoom.scaleExtent(),
+                      translate = zoom.translate(),
+                      x = translate[0], y = translate[1],
+                      factor = (this.id === 'zoom_in') ? 2 : 1/2,
+                      target_scale = scale * factor;
+
+                  var clamped_target_scale = Math.max(extent[0], Math.min(extent[1], target_scale));
+                    if (clamped_target_scale != target_scale){
+                        target_scale = clamped_target_scale;
+                        factor = target_scale / scale;
+                    }
+
+                    // Center each vector, stretch, then put back
+                    x = (x - center[0]) * factor + center[0];
+                    y = (y - center[1]) * factor + center[1];
+
+
+                    // Transition to the new view over 350ms
+          d3.transition().duration(350).tween("zoom", function () {
+              var interpolate_scale = d3.interpolate(scale, target_scale),
+                  interpolate_trans = d3.interpolate(translate, [x,y]);
+              return function (t) {
+                  zoom.scale(interpolate_scale(t))
+                      .translate(interpolate_trans(t));
+                  svg.call(zoom.event);
+              };
+          });
+    });
+
+    svg.select("#progress-image").remove();
+}
+
+
+function typeAndSet(d) {
+
+  d.HC01_EST_VC04 = +d.HC01_EST_VC04;
+  d.HC01_EST_VC05 = +d.HC01_EST_VC05;
+  d.HC01_EST_VC10 = +d.HC01_EST_VC10;
+  d.HC01_EST_VC11 = +d.HC01_EST_VC11;
+  d.HC01_EST_VC12 = +d.HC01_EST_VC12;
+  d.HC01_EST_VC13 = +d.HC01_EST_VC13;
+  d.HC01_EST_VC14 = +d.HC01_EST_VC14;
+
+  d.HC01_MOE_VC04 = +d.HC01_MOE_VC04;
+  d.HC01_MOE_VC05 = +d.HC01_MOE_VC05;
+  d.HC01_MOE_VC10 = +d.HC01_MOE_VC10;
+  d.HC01_MOE_VC11 = +d.HC01_MOE_VC11;
+  d.HC01_MOE_VC12 = +d.HC01_MOE_VC12;
+  d.HC01_MOE_VC13 = +d.HC01_MOE_VC13;
+  d.HC01_MOE_VC14 = +d.HC01_MOE_VC14;
+  commuteById.set(d.CMBD, d);
+
+}
+
+function updateClasses() {
+  if (CURR_SELECT.length > 0) {
+      svg.selectAll(".collection path")
+          .attr("fill", function(d) { return colorByGreatest(d.id) });
+        // .attr("class", function(d) { return classByGreatest(d.id); })
+        // .attr("opacity", function(d) { return opacityByGreatest(d.id); });
+  } else {
+      svg.selectAll(".collection path")
+        .attr("class", "")
+        .attr("fill", defaultFill);
+  }
+
+}
+
+function colorByGreatest(CMBD) {
+
+  var countyObject = commuteById.get(CMBD);
+
+  if (typeof countyObject !== "undefined") {
+      var values = [];
+      for (var i = 0; i < CURR_SELECT.length; i++) {
+          values.push(countyObject[CURR_SELECT[i]]);
+      }
+      var maxValue = d3.max(values);
+      var maxIndex = values.indexOf(maxValue);
+      var metric = CURR_SELECT[maxIndex];
+      return baseColors[metric](maxValue);
+  }
+
+  else {
+      return "#ffffff";
+  }
+
+}
+
+
+// function classByGreatest(CMBD) {
+//     var countyObject = commuteById.get(CMBD);
+//
+//     if (typeof countyObject !== "undefined") {
+//         var values = [];
+//         for (var i = 0; i < CURR_SELECT.length; i++) {
+//             values.push(countyObject[CURR_SELECT[i]]);
+//         }
+//         var maxIndex = values.indexOf(d3.max(values));
+//         return CURR_SELECT[maxIndex];
+//     }
+//
+//     else {
+//         return "NODATA";
+//     }
+// }
+
+// function opacityByGreatest(CMBD) {
+//     var countyObject = commuteById.get(CMBD);
+//
+//     if (typeof countyObject !== "undefined") {
+//         var values = [];
+//         for (var i = 0; i < CURR_SELECT.length; i++) {
+//             values.push(countyObject[CURR_SELECT[i]]);
+//         }
+//         return opacityScale(d3.max(values));
+//     }
+//
+//     else {
+//         return 0;
+//     }
+// }
+
+function zoomIn() {
+  zoom.scale(zoom.scale()*2);
+  move();
+}
+
+function move() {
+var t = d3.event.translate,
+    s = d3.event.scale;
+t[0] = Math.min(width * (s - 1), Math.max(width * (1 - s), t[0]));
+t[1] = Math.min(height * (s - 1), Math.max(height * (1 - s), t[1]));
+zoom.translate(t);
+g.style("stroke-width", 1 / s).attr("transform", "translate(" + t + ")scale(" + s + ")");
+}
+
+function clicked(d) {
+var x, y, k;
+
+if (d && centered !== d) {
+  var centroid = path.centroid(d);
+  x = centroid[0];
+  y = centroid[1];
+  k = 4;
+  centered = d;
+} else {
+  x = width / 2;
+  y = height / 2;
+  k = 1;
+  centered = null;
+}
+
+g.selectAll("path")
+    .classed("active", centered && function(d) { return d === centered; });
+
+g.transition()
+    .duration(750)
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+    .style("stroke-width", 1.5 / k + "px");
+}
 
 
 
+function removeFromArray(arr) {
+  var what, a = arguments, L = a.length, ax;
+  while (L > 1 && arr.length) {
+      what = a[--L];
+      while ((ax= arr.indexOf(what)) !== -1) {
+          arr.splice(ax, 1);
+      }
+  }
+  return arr;
+}
 
-  <body>
 
-  </body>
-</html>
+d3.select(self.frameElement).style("height", height + "px");
+
+</script>
