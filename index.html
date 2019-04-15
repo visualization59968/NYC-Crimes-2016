@@ -79,10 +79,39 @@
 <script src="https://d3js.org/queue.v1.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
 
+<script>
+
+var width = 960,
+    height = 600,
+    center = [width / 2, height / 2],
+    defaultFill = "#e0e0e0";
+
+    var baseColors = {
+      "HC01_EST_VC04": d3.scale.linear().domain([0,180]).range(["#ffffff", "#8dd3c7"]).interpolate(d3.interpolateLab),
+      "HC01_EST_VC05": d3.scale.linear().domain([0,200]).range(["#ffffff", "#bc80bd"]).interpolate(d3.interpolateLab),
+      "HC01_EST_VC10": d3.scale.linear().domain([0,40]).range(["#ffffff", "#bebada"]).interpolate(d3.interpolateLab),
+      "HC01_EST_VC11": d3.scale.linear().domain([0,400]).range(["#ffffff", "#fb8072"]).interpolate(d3.interpolateLab),
+      "HC01_EST_VC12": d3.scale.linear().domain([0,5]).range(["#ffffff", "#80b1d3"]).interpolate(d3.interpolateLab),
+      "HC01_EST_VC13": d3.scale.linear().domain([0,180]).range(["#ffffff", "#fdb462"]).interpolate(d3.interpolateLab),
+      "HC01_EST_VC14": d3.scale.linear().domain([0,70]).range(["#ffffff", "#b3de69"]).interpolate(d3.interpolateLab),
+  };
+
+  var commuteById = d3.map();
+
+var projection = d3.geo.mercator()
+    .scale(62000)
+	.center( [-73.85,40.71] )
+    .translate([width / 2, height / 2]);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+
+
 
 
 
   <body>
-    
+
   </body>
 </html>
