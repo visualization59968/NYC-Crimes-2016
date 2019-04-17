@@ -89,6 +89,9 @@ div.tooltip .moe { float: right; color: #aaa; width: 30px; text-align: right; }
   fill: #e0e0e0;
 }
 
+.nyc-councils{
+    float: right;
+}
 .states {
   fill: none;
   stroke: #fff;
