@@ -92,6 +92,8 @@ div.tooltip .moe { float: right; color: #aaa; width: 30px; text-align: right; }
 
 .nyc-councils{
     float: right;
+    display:inline-block;
+
 }
 .states {
   fill: none;
