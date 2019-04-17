@@ -1,6 +1,8 @@
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td, legend {
 	margin: 0;
 	padding: 0;
+	display:inline-block;
+
 }
 h1,h2,h3,h4,h5,h6 { font-family: Roboto, Arial, Helvetica, sans-serif; font-weight: bold; font-size: 100%; }
 address, caption, cite, code, dfn, th, var { font-style: normal; font-weight: normal; }
@@ -8,10 +10,11 @@ table { border-collapse: collapse; border-spacing: 0; }
 fieldset,img { border: 0; }
 caption,th { text-align: left; }
 
+
+
 #main-wrapper {
     width: 960px;
     margin: 0 auto;
-    display:inline-block;
 }
 
 path:hover {
@@ -92,7 +95,6 @@ div.tooltip .moe { float: right; color: #aaa; width: 30px; text-align: right; }
 
 .nyc-councils{
     float: right;
-    display:inline-block;
 
 }
 .states {
